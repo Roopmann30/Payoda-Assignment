@@ -1,1 +1,197 @@
-helmet 
+# AI-Based Hard Hat Detection using YOLOv11
+
+## Overview
+
+This project implements a real-time **Hard Hat Detection System** using **YOLOv11** to identify construction workers wearing safety helmets. The system is trained on the Hard Hat Detection dataset from Kaggle and can detect three object classes: **Helmet**, **Head**, and **Person**.
+
+The project demonstrates an end-to-end object detection pipeline, including dataset preprocessing, annotation conversion, model training, evaluation, and inference.
+
+---
+
+## Features
+
+* Object detection using YOLOv11
+* Pascal VOC XML to YOLO annotation conversion
+* Automatic train, validation, and test dataset splitting
+* Transfer learning using pretrained YOLOv11 weights
+* Detection on images
+* Model evaluation using standard object detection metrics
+
+---
+
+## Dataset
+
+**Dataset:** Hard Hat Detection
+
+**Source:** https://www.kaggle.com/datasets/andrewmvd/hard-hat-detection
+
+### Classes
+
+* Helmet
+* Head
+* Person
+
+---
+
+## Project Structure
+
+```text
+HardHatDetection/
+│
+├── dataset/
+│   ├── images/
+│   │   ├── train/
+│   │   ├── val/
+│   │   └── test/
+│   │
+│   ├── labels/
+│   │   ├── train/
+│   │   ├── val/
+│   │   └── test/
+│   │
+│   └── data.yaml
+│
+├── annotations/
+├── images/
+├── labels/
+│
+├── HardHatDetection/
+│   └── yolo11n_fast/
+│       ├── weights/
+│       │   ├── best.pt
+│       │   └── last.pt
+│       ├── results.png
+│       ├── confusion_matrix.png
+│       ├── PR_curve.png
+│       └── ...
+│
+├── requirements.txt
+└── README.md
+```
+
+---
+
+## Technologies Used
+
+* Python
+* YOLOv11 (Ultralytics)
+* PyTorch
+* OpenCV
+* NumPy
+* Matplotlib
+* PyYAML
+* KaggleHub
+
+---
+
+## Methodology
+
+1. Download the Hard Hat Detection dataset.
+2. Convert Pascal VOC XML annotations into YOLO format.
+3. Split the dataset into training, validation, and testing sets.
+4. Configure the dataset using `data.yaml`.
+5. Fine-tune a pretrained YOLOv11 model.
+6. Evaluate model performance using object detection metrics.
+7. Perform inference on unseen images.
+
+---
+
+## Model Configuration
+
+| Parameter         | Value                         |
+| ----------------- | ----------------------------- |
+| Model             | YOLOv11n                      |
+| Image Size        | 320 × 320                     |
+| Batch Size        | 4                             |
+| Epochs            | 1 (Demo Training)             |
+| Optimizer         | Default Ultralytics Optimizer |
+| Transfer Learning | Yes                           |
+
+---
+
+## Evaluation Metrics
+
+The model is evaluated using:
+
+* Precision
+* Recall
+* mAP@0.5
+* mAP@0.5:0.95
+* Precision–Recall Curve
+* Confusion Matrix
+
+---
+
+## Installation
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## Training
+
+```bash
+python train.py
+```
+
+or run the training notebook in Jupyter/Kaggle.
+
+---
+
+## Inference
+
+```python
+from ultralytics import YOLO
+
+model = YOLO("best.pt")
+
+results = model.predict(
+    source="sample_image.jpg",
+    save=True,
+    conf=0.25
+)
+```
+
+---
+
+## Results
+
+The trained model detects:
+
+* Safety Helmets
+* Human Heads
+* Construction Workers
+
+Predictions are generated with bounding boxes and confidence scores.
+
+---
+
+## Future Improvements
+
+* Real-time webcam detection
+* Video stream processing
+* PPE detection (Helmet, Vest, Gloves, Boots)
+* Worker tracking using ByteTrack or DeepSORT
+* Safety violation alerts
+* Streamlit web application
+* Edge deployment on embedded devices
+
+---
+
+## Requirements
+
+See `requirements.txt` for all required Python packages.
+
+---
+
+## Author
+
+Developed as an AI & Deep Learning object detection project using YOLOv11 for construction site safety monitoring.
+
+---
+
+## License
+
+This project is intended for educational and research purposes.
